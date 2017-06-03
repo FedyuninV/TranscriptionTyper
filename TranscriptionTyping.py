@@ -1,8 +1,6 @@
-from aqt.editor import Editor
 from anki.hooks import wrap, addHook
-from aqt.utils import showInfo
 from aqt.qt import QMenu, QCursor
-from json import dumps
+from os.path import join
 
 class _TextMime:
     def __init__(self, text):
@@ -24,7 +22,10 @@ def _onTranscriptionButton(self):
 
 def _addTranscriptionButton(righttopbtns, self):
     self._links['onTranscriptionButton'] = _onTranscriptionButton
-    righttopbtns.append(self._addButton(icon='/home/fedyuninv/Documents/MyOwn/Coding/anki/TranscriptionTyping/transcription.png', cmd='onTranscriptionButton', tip="Transcription symbols"))
+    icon_path = join(self.mw.pm.addonFolder(), 'transcription.png')
+    righttopbtns.append(self._addButton(icon=icon_path,
+                                        cmd='onTranscriptionButton',
+                                        tip="Transcription symbols"))
     return righttopbtns
 
 addHook("setupEditorButtons", _addTranscriptionButton)
