@@ -3,7 +3,11 @@ from aqt.qt import QMenu, QCursor
 from os.path import join
 
 
-def _onTranscriptionButton(self):
+def _on_transcription_button(self):
+    """
+    Executed when the button on the right top of the editor is pressed.
+    Creates popup menu with different phonetics symbols to print.
+    """
     m = QMenu(self.mw)
     symbols = "æɑɒɔəɜɪʊʌθðŋɹɫʃʒʍʔ"
     for s in symbols:
@@ -12,8 +16,12 @@ def _onTranscriptionButton(self):
     m.popup(QCursor.pos())
 
 
-def _addTranscriptionButton(righttopbtns, self):
-    self._links['onTranscriptionButton'] = _onTranscriptionButton
+def _add_transcription_button(righttopbtns, self):
+    """
+    Executed when editor base is built.
+    Adds button for transcription symbols.
+    """
+    self._links['onTranscriptionButton'] = _on_transcription_button
     icon_path = join(self.mw.pm.addonFolder(), 'transcription.png')
     transcription_button = self._addButton(icon=icon_path,
                                            cmd='onTranscriptionButton',
@@ -22,4 +30,6 @@ def _addTranscriptionButton(righttopbtns, self):
     return righttopbtns
 
 
-addHook("setupEditorButtons", _addTranscriptionButton)
+# This filter is executed when Anki finished building its editor.
+# (since Anki ver. 2.1.*)
+addHook("setupEditorButtons", _add_transcription_button)
