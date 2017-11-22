@@ -22,7 +22,7 @@ def _add_transcription_button(righttopbtns, self):
     Adds button for transcription symbols.
     """
     self._links['onTranscriptionButton'] = _on_transcription_button
-    icon_path = join(self.mw.pm.addonFolder(), 'transcription.png')
+    icon_path = join(join(self.mw.pm.addonFolder(), 'TranscriptionTyping'), 'transcription.png')
     transcription_button = self._addButton(icon=icon_path,
                                            cmd='onTranscriptionButton',
                                            tip="Transcription symbols")
